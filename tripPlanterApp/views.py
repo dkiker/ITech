@@ -75,6 +75,7 @@ def add_trip(request):
                 ftrip=trip1
         print(ftrip)
         # Have we been provided with a valid form?
+        print(form.is_valid())
         if form.is_valid():
             # Save the new category to the database.
             data = form.cleaned_data['places']

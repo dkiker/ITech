@@ -10,18 +10,21 @@
         <form id="category_form" method="post" action="tripPlanterApp/add_trip">
 
             {% csrf_token %}
-            {% for hidden in form.hidden_fields %}
-                {{ hidden }}
+{#            {% for hidden in form.hidden_fields %}#}
+{#                {{ hidden }}#}
+{#            {% endfor %}    #}
+{#            #}
+{#            {% for field in form.visible_fields %}#}
+{#                {{ field.errors }}#}
+{#                {{ field.help_text }}#}
+{#                {{ field }}#}
+{#            {% endfor %}#}
+            {% for place in form.places%}
+                {{ place }}
             {% endfor %}
-
-            {% for field in form.visible_fields %}
-                {{ field.errors }}
-                {{ field.help_text }}
-                {{ field }}
-            {% endfor %}
-
             <input type="submit" name="submit" value="Create Trip" />
         </form>
+    <script></script>
     </body>
 
 </html>
