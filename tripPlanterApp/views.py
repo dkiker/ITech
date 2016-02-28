@@ -38,16 +38,19 @@ def explore(request):
 
 def summary(request,tripID):
 
+    print tripID
     context_dict ={}
 
 
     try:
         trip = Trip.objects.get(id=tripID)
 
+        print trip.title
         context_dict['trip'] = trip
 
         visits = Visit.objects.filter(trip = trip)
 
+        print visits
         context_dict['visits'] = visits
 
         places = []
@@ -56,6 +59,7 @@ def summary(request,tripID):
             place = Place.objects.get(id=visit.place.id)
             places.append(place)
 
+        print places
         context_dict['places'] = places
     except Trip.DoesNotExist:
         pass
