@@ -20,6 +20,14 @@ def plan(request):
 
     return render(request, 'plan.html', context_dict)
 
+def about(request):
+    context_dict ={}
+    # Return a rendered response to send to the client.
+    # We make use of the shortcut function to make our lives easier.
+    # Note that the first parameter is the template we wish to use.
+
+    return render(request, 'about.html', context_dict)
+
 def explore(request):
     context_dict ={}
     # Return a rendered response to send to the client.
