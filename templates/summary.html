@@ -4,14 +4,18 @@
 
 {% block title %}Summary{% endblock %}
 {% block main %}
-                        <article class="blog-item">
- TRIP 1
-                        </article> <!-- /.blog-item -->
-
-
-                        <article class="blog-item">
- TRIP 2
-                        </article> <!-- /.blog-item -->
+    {% if places %}
+        {{ trip.planner }}
+        {% for place in places %}
+            <article class="blog-item">
+                {{ place.name }}
+            </article> <!-- /.blog-item -->
+        {% endfor %}
+    {% else %}
+        <article class="blog-item">
+            Trip Does Not exist or Does Not have any associated places
+        </article>
+    {% endif %}
 
 {% endblock %}
 
