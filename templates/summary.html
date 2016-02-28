@@ -3,20 +3,35 @@
 {%load static%}
 
 {% block title %}Summary{% endblock %}
+{% block head %}
+<link rel="stylesheet" type="text/css" href="http://ajax.aspnetcdn.com/ajax/jquery.dataTables/1.9.4/css/jquery.dataTables.css">
+{% endblock %}
 {% block main %}
-    {% if places %}
-        {{ trip.planner }}
-        {% for place in places %}
-            <article class="blog-item">
-                {{ place.name }}
-            </article> <!-- /.blog-item -->
-        {% endfor %}
-    {% else %}
-        <article class="blog-item">
-            Trip Does Not exist or Does Not have any associated places
-        </article>
-    {% endif %}
 
+	<h5>{{trip.planner}}'s trip</h5>
+    <div class="row panel-body">
+        <div class="span6 table-responsive" style="margin-left:0px">
+            <table id="Places" class="table table-striped table-bordered" cellspacing="0" width="100%">
+                <thead>
+                    <tr>
+                        <th>Place Name</th>
+                        <th>City</th>
+                        <th>Price Range</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for place in places %}
+                        <tr class="studentLabel">
+                            <td><a href="">{{place.name}}</a></td>
+                            <td>{{place.city}}</td>
+                            <td>{{place.price}}</td>
+                        </tr>
+                    {% endfor %}
+
+                </tbody>
+             </table>
+        </div>
+    </div> <!-- close panel -->
 {% endblock %}
 
 {% block sidebar %}
@@ -26,3 +41,11 @@
     SIDEBAR CODE HERE
                             </div> <!-- /.share-widget -->
 {% endblock %}
+  <script type="text/javascript" charset="utf8" src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.8.2.min.js"></script>
+  <script type="text/javascript" charset="utf8" src="http://ajax.aspnetcdn.com/ajax/jquery.dataTables/1.9.4/jquery.dataTables.min.js"></script>
+  
+<script>
+$(function(){
+    $("#Places").dataTable();
+  })
+</script>
