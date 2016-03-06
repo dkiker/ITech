@@ -23,8 +23,18 @@
             <select multiple="multiple" id ="places" name="places">
 
             </select>
-            <input type="submit" value="Submit now" />
 
+
+             {% for hidden in tripForm.hidden_fields %}
+                {{ hidden }}
+            {% endfor %}
+
+            {% for field in tripForm.visible_fields %}
+                {{ field.errors }}
+                {{ field.help_text }}
+                {{ field }}
+            {% endfor %}
+        <input type="submit" value="Submit now" />
         </form>
     </div> <!-- /.share-widget -->
     <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCvQW0hONU01G0pfrJZ1nZRZuulSY4rG2I&libraries=places"></script>
@@ -74,7 +84,7 @@
                             '<div id="bodyContent">' +
                             '<p>TEXT</p>' +
                             '<p>Add to visit list:<button type="button" class="glyphicon glyphicon-plus addplace" id='+place.id+' name="'+place.name+'" />' +
-                            '</div>' +
+                            '</div>' +``
                             '</div>';
                     return contentString;
                 }
@@ -89,7 +99,8 @@
             $('#places').append($('<option>', {
                 name: this.name,
                 value: this.id,
-                text: this.name
+                text: this.name,
+                selected: true
             }));
         });
         });
