@@ -17,7 +17,7 @@ class Planner(models.Model):
 class Trip(models.Model):
     planner = models.ForeignKey(Planner)
     title = models.CharField(max_length=128)
-    picture = models.ImageField(upload_to='profile_images', blank=True)
+    picture = models.ImageField(upload_to='trip_images', blank=True)
     isSuggestedTrip = models.BooleanField(default=False)
 
     def __unicode__(self):
@@ -27,8 +27,8 @@ class Trip(models.Model):
 class Place(models.Model):
     #decimals are very important in coordinates but using more than 6 is basically meaningless.
     name = models.CharField(max_length=128)
-    lon = models.DecimalField(max_digits=9, decimal_places=6,blank=True)
     lat = models.DecimalField(max_digits=9, decimal_places=6,blank=True)
+    lon = models.DecimalField(max_digits=9, decimal_places=6,blank=True)
     price = models.IntegerField()
 
     def __unicode__(self):
