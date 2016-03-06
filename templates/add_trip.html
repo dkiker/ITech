@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+{% load static %}
 <html>
     <head>
         <title>Rango</title>
@@ -7,24 +8,29 @@
     <body>
         <h1>Add a Category</h1>
 
-        <form id="category_form" method="post" action="tripPlanterApp/add_trip">
+       <p>
+           {% if errors %}
+               {{ errors }}
+           {% endif %}
+       </p>
+        <form method="post" id="myform">
+                    {% csrf_token %}
+        <select multiple="multiple" id ="places" name="places">
 
-            {% csrf_token %}
-{#            {% for hidden in form.hidden_fields %}#}
-{#                {{ hidden }}#}
-{#            {% endfor %}    #}
-{#            #}
-{#            {% for field in form.visible_fields %}#}
-{#                {{ field.errors }}#}
-{#                {{ field.help_text }}#}
-{#                {{ field }}#}
-{#            {% endfor %}#}
-            {% for place in form.places%}
-                {{ place }}
-            {% endfor %}
-            <input type="submit" name="submit" value="Create Trip" />
-        </form>
-    <script></script>
+        </select>
+                        <input type="submit" value="Submit now" />
+
+</form>
+ <button id="addElement">Click me</button>
+
+    <script type="text/javascript" src="{% static 'js/jquery-2.1.3.min.js'%}"></script>
+     <script>
+        $(document).ready(function () {
+        $( "#addElement" ).click(function() {
+
+});
+
+    </script>
     </body>
 
 </html>
