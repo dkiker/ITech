@@ -1,8 +1,9 @@
+from django.http import HttpResponse
 from django.shortcuts import render
 from models import Trip, Visit, Place
 from django.contrib.auth.models import User
 from forms import MyForm
-
+import json
 def index(request):
     context_dict ={}
     # Return a rendered response to send to the client.
@@ -108,3 +109,21 @@ def add_trip(request):
     # Render the form with error messages (if any).
     return render(request, 'add_trip.html', {'errors': form.errors})
 
+
+def search_trips(request):
+
+    if request.is_ajax():
+        q = request.GET.get('term', '')
+        trips = Trip.objects.filter(title__contains= q )[:20]
+        results = []
+        for trip in trips:
+            trip_json = {}
+            trip_json['id'] = trip.id
+            trip_json['label'] = trip.title
+            trip_json['value'] = trip.title
+            results.append(trip_json)
+        data = json.dumps(results)
+    else:
+        data = 'fail'
+    mimetype = 'application/json'
+    return HttpResponse(data, mimetype)
