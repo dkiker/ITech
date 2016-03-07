@@ -14,7 +14,7 @@
                                 <li data-target="#myCarousel" data-slide-to="3"></li>
                               </ol>
 
-                              <!-- Wrapper for slides --><
+                              <!-- Wrapper for slides -->
                               <!-- The Carousel is automatically populated with photographs from the trips that are -->
                               <!-- marked as "suggested" in the database -->
                               <div class="carousel-inner" role="listbox">
@@ -23,6 +23,7 @@
                                 <div class="item {% ifequal trip initial %} active {% endifequal %}">
                                   <img src="{{ trip.photograph.url}}">
                                 </div>
+                                <
                                 {% endfor %}
                                 {% endwith %}
 
@@ -68,7 +69,7 @@
                             </div>
 
                             <a href="http://themewagon.com/" class="template-images">
-                                <img class="img-responsive" src="{% static 'img/store1.png' %}" alt="Template Store">
+                                <img class="img-responsive" src="{% static 'img/logo.jpeg' %}" alt="Template Store">
                                 <div class="overlay"></div>
                             </a>
 
