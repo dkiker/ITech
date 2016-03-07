@@ -7,5 +7,4 @@ urlpatterns = patterns('',
                         url(r'^plan/$',views.plan, name='trip'),
                         url(r'^explore/$',views.explore, name='explore'),
                         url(r'^about/$',views.about, name='about'),
-                        url(r'^add_trip/', views.add_trip, name='add_trip'),
                        )

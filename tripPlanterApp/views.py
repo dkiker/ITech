@@ -41,7 +41,7 @@ def plan(request):
             print form.errors
             context_dict['errors'] = form.errors
     else:
-        places = Place.objects.all()
+        places = Place.objects.all()#WILL BE FILTERED BY LOCATION SELECTED
         form = CreateTrip()
         # If the request was not a POST, display the form to enter details.
         context_dict['places'] = places
@@ -98,42 +98,5 @@ def summary(request,tripID):
 
 
 
-def add_trip(request):
-    # A HTTP POST?
-    if request.method == 'POST':
-        print(request.POST)
-        form = MyForm(request.POST)
-        planner = User.objects.get(username='angelos')
-        trip = Trip.objects.all()
-        ftrip= None
-        for trip1 in trip:
-            print(trip1.planner.user_id)
-            if (trip1.planner.user_id == planner.id):
-                ftrip=trip1
-        print(ftrip)
-        # Have we been provided with a valid form?
-        print(form.is_valid())
-        if form.is_valid():
-            # Save the new category to the database.
-            data = form.cleaned_data['place']
-            for place in data:
-                visit = Visit(trip=ftrip, place=place)
-                visit.save()
-                print(place)
-            # Now call the index() view.
-            # The user will be shown the homepage.
-            return index(request)
-        else:
-            # The supplied form contained errors - just print them to the terminal.
-            print form.errors
-    else:
-        places = Place.objects.all()
-        form = MyForm()
-        print(form)
-        # If the request was not a POST, display the form to enter details.
-        return render(request, 'add_trip.html', {'places':places})
 
-    # Bad form (or form details), no form supplied...
-    # Render the form with error messages (if any).
-    return render(request, 'add_trip.html', {'errors': form.errors})
 
