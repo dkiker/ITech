@@ -42,8 +42,8 @@ class Place(models.Model):
     location = models.CharField(max_length=20)
     lat = models.DecimalField(max_digits=9, decimal_places=6,blank=True)
     lon = models.DecimalField(max_digits=9, decimal_places=6,blank=True)
-    price = models.IntegerField()
-    description = models.CharField(max_length=150, default="")
+    price = models.IntegerField(blank=True)
+    description = models.CharField(max_length=250, default="")
 
     def __unicode__(self):
         return self.name
