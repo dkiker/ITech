@@ -6,6 +6,9 @@ from forms import MyForm,CreateTrip
 
 def index(request):
     context_dict ={}
+    # Sends a set with all the suggested trips to the index template as part of the context dictionary
+    suggested_trips = Trip.objects.filter(isSuggestedTrip=True)
+    context_dict['suggested_trips'] = suggested_trips
     # Return a rendered response to send to the client.
     # We make use of the shortcut function to make our lives easier.
     # Note that the first parameter is the template we wish to use.
