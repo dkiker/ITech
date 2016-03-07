@@ -14,7 +14,8 @@ BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 SETTINGS_DIR = os.path.dirname(__file__)
 PROJECT_PATH = os.path.join(SETTINGS_DIR, os.pardir)
 PROJECT_PATH = os.path.abspath(PROJECT_PATH)
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(PROJECT_PATH, 'media')
 
 
 ## set template path
@@ -113,7 +114,4 @@ STATICFILES_DIRS = (
     # Don't forget to use absolute paths, not relative paths.
     STATIC_PATH,
 )
-
-MEDIA_URL = '/media/'
-
 
