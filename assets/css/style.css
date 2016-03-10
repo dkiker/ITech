@@ -724,8 +724,14 @@ only screen and (max-device-width : 550px){
 /*=============================================================================
 								Sidebar
 =================================================================================*/
+.exploreTitle{
+	height:100px;
+	text-align: right;
+	margin-right:10em;
+}
+
 .exploreImage{
-	width:100%;
+	height:125px;
 }
 
 .sidebarImage{
