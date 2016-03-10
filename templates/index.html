@@ -5,36 +5,36 @@
 {% block title %}Home{% endblock %}
 {% block main %}
                         <article class="blog-item">
+                        <h4>Planters Suggest:</h4>
                             <div id="myCarousel" class="carousel slide" data-ride="carousel">
                               <!-- Indicators -->
+                            {% with suggested_trips|first as initial %}
                               <ol class="carousel-indicators">
-                                <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
-                                <li data-target="#myCarousel" data-slide-to="1"></li>
-                                <li data-target="#myCarousel" data-slide-to="2"></li>
-                                <li data-target="#myCarousel" data-slide-to="3"></li>
+                                {% for trip in suggested_trips %}
+                                <li data-target="#myCarousel" data-slide-to="{{forloop.counter0}}" class="{% ifequal trip initial %}active{% endifequal %}"></li>
+                                {% endfor %}
                               </ol>
 
                               <!-- Wrapper for slides -->
                               <!-- The Carousel is automatically populated with photographs from the trips that are -->
                               <!-- marked as "suggested" in the database -->
                               <div class="carousel-inner" role="listbox">
-                                {% with suggested_trips|first as initial %}
                                 {% for trip in suggested_trips %}
                                 <div class="item {% ifequal trip initial %} active {% endifequal %}">
-                                  <img src="{{ trip.photograph.url}}">
+                                  <a href="{% url 'tripSummary' trip.id %}"><img src="{{ trip.photograph.url}}"></a>
+                                  <h6>{{trip.title}}</h6>
                                 </div>
-                                <
                                 {% endfor %}
-                                {% endwith %}
+                            {% endwith %}
 
                               <!-- Left and right controls -->
                               <a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev">
-                                <span class="fa fa-angle-left" aria-hidden="true"></span>
-                                <span class="sr-only">Previous</span>
+                                Previous<span class="fa fa-angle-left" aria-hidden="true"></span>
+                                <span></span>
                               </a>
                               <a class="right carousel-control" href="#myCarousel" role="button" data-slide="next">
-                                <span class="fa fa-angle-right" aria-hidden="true"></span>
-                                <span class="sr-only">Next</span>
+                                <span class="fa fa-angle-right" aria-hidden="true">Next</span>
+                                <span></span>
                               </a>
                             </div>
                         </article> <!-- /.blog-item -->
@@ -62,42 +62,23 @@
 
         <div class="input-group margin-bottom-sm">
             <input class="form-control" type="text" id="trips" placeholder="Search trips...">
-            <a id ="searchHandle" href="#" class="input-group-addon">
-                <i class="fa fa-search fa-fw"></i>
-            </a>
+
         </div>
 
     </div>
-
-    <!-- search option
-    <div class="search-widget">
-        <div class="input-group margin-bottom-sm">
-            <input class="form-control" type="text" placeholder="Search here">
-            <a href="#" class="input-group-addon">
-                <i class="fa fa-search fa-fw"></i>
-            </a>
-        </div>
+    <div class="well">
+    <h5>Top Trips!</h5>
+    <ul>
+        {% for trip in suggested_trips %}
+        <li><a href="{% url 'tripSummary' trip.id %}">{{trip.title}}</a></li>
+        {% endfor %}
+    </ul>
     </div>
-    -->
 
 
-    <a href="http://themewagon.com/" class="template-images">
-        <img class="img-responsive" src="{% static 'img/store1.png' %}" alt="Template Store">
-        <div class="overlay"></div>
-    </a>
+
 
     <!-- subscribe form -->
-    <div class="subscribe-widget">
-        <h4 class="text-capitalize text-center">
-            get recent update by email
-        </h4>
-        <div class="input-group margin-bottom-sm">
-            <input class="form-control" type="text" placeholder="Your Email">
-            <a href="#" class="input-group-addon">
-                <i class="fa fa-paper-plane fa-fw"></i>
-            </a>
-        </div>
-    </div>
 
     <!-- sidebar share buttons->
     <div class="share-widget hidden-xs hidden-sm">
