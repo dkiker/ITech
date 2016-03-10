@@ -69,6 +69,9 @@ def explore(request):
     # We make use of the shortcut function to make our lives easier.
     # Note that the first parameter is the template we wish to use.
 
+    suggested_trips = Trip.objects.filter(isSuggestedTrip=True)
+    context_dict['trips'] = suggested_trips
+
     return render(request, 'explore.html', context_dict)
 
 def summary(request,tripID):

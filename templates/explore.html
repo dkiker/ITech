@@ -3,22 +3,34 @@
 {%load static%}
 
 {% block title %}Explore{% endblock %}
+
+
 {% block main %}
-                        <article class="blog-item">
- TRIP 1
-                        </article> <!-- /.blog-item -->
-
-
-                        <article class="blog-item">
- TRIP 2
-                        </article> <!-- /.blog-item -->
+{% for trip in trips%}
+<!-- trip item -->
+<a href="{% url 'tripSummary' trip.id%}">
+	<article class="blog-item">
+	<img class="pull-left exploreImage" src="{{trip.photograph.url}}"> <h3>{{trip.title}}</h3>
+    </article>
+</a>
+<!-- /.trip item -->
+{% endfor %}
 
 {% endblock %}
 
-{% block sidebar %}
 
-                            <!-- search option -->
-                            <div>
-    SIDEBAR CODE HERE
-                            </div> <!-- /.share-widget -->
+{% block sidebar %}
+<!-- sidebar share code -->
+<div>
+    <h5>Share:</h5>
+    <div>
+    <span class='st_facebook_large' displayText='Facebook'></span>
+    <span class='st_fblike_large' displayText='Facebook Like'></span>
+    <span class='st_twitter_large' displayText='Tweet'></span>
+    <span class='st_googleplus_large' displayText='Google +'></span>
+    <span class='st_linkedin_large' displayText='LinkedIn'></span>
+    <span class='st_email_large' displayText='Email'></span>
+    </div>
+</div>
+<!-- /.sidebar share code -->
 {% endblock %}
