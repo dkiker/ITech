@@ -1,3 +1,4 @@
+from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
 from django.shortcuts import render
 from models import Trip, Visit, Place,Planner
@@ -5,6 +6,7 @@ from django.contrib.auth.models import User
 import json
 from forms import MyForm,CreateTrip
 
+@login_required
 def index(request):
     context_dict ={}
     # Sends a set with all the suggested trips to the index template as part of the context dictionary
@@ -16,7 +18,7 @@ def index(request):
 
     return render(request, 'index.html', context_dict)
 
-
+@login_required
 def plan(request):
     context_dict ={}
      # A HTTP POST?
@@ -54,6 +56,7 @@ def plan(request):
 
     return render(request, 'plan.html', context_dict)
 
+@login_required
 def about(request):
     context_dict ={}
     # Return a rendered response to send to the client.
@@ -62,6 +65,7 @@ def about(request):
 
     return render(request, 'about.html', context_dict)
 
+@login_required
 def explore(request):
     context_dict ={}
     # Return a rendered response to send to the client.
@@ -70,6 +74,7 @@ def explore(request):
 
     return render(request, 'explore.html', context_dict)
 
+@login_required
 def summary(request,tripID):
 
     print tripID
@@ -101,10 +106,7 @@ def summary(request,tripID):
     return render(request,'summary.html',context_dict)
 
 
-
-
-
-
+@login_required
 def search_trips(request):
 
     if request.is_ajax():
