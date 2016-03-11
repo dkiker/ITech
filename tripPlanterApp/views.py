@@ -1,8 +1,9 @@
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
-from django.shortcuts import render
+from django.shortcuts import render_to_response, redirect, get_object_or_404, render
 from models import Trip, Visit, Place,Planner
 from django.contrib.auth.models import User
+from django.core.urlresolvers import reverse,resolve
 import json
 from forms import MyForm,CreateTrip
 
@@ -41,7 +42,7 @@ def plan(request):
                 print(place)
             # Now call the index() view.
             # The user will be shown the homepage.
-            return render(request, 'index.html')
+            return redirect(reverse('tripSummary', args=[trip.id] ))
         else:
             # The supplied form contained errors - just print them to the terminal.
             print form.errors
@@ -72,6 +73,9 @@ def explore(request):
     # We make use of the shortcut function to make our lives easier.
     # Note that the first parameter is the template we wish to use.
 
+    suggested_trips = Trip.objects.filter(isSuggestedTrip=True)
+    context_dict['trips'] = suggested_trips
+
     return render(request, 'explore.html', context_dict)
 
 @login_required
@@ -86,7 +90,7 @@ def summary(request,tripID):
 
         print trip.title
         context_dict['trip'] = trip
-
+        context_dict['photo'] ="/media/"+str(trip.photograph)
         visits = Visit.objects.filter(trip = trip)
 
         print visits

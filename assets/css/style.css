@@ -724,6 +724,19 @@ only screen and (max-device-width : 550px){
 /*=============================================================================
 								Sidebar
 =================================================================================*/
+.exploreTitle{
+	height:100px;
+	text-align: right;
+	margin-right:10em;
+}
+
+.exploreImage{
+	height:125px;
+}
+
+.sidebarImage{
+	width:100%;
+}
 
 .sidebar {
 	position: relative;
