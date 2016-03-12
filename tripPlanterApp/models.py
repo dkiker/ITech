@@ -1,8 +1,8 @@
 from django.db import models
 from django.contrib.auth.models import User
 from django.template.defaultfilters import slugify
-
-
+from registration.signals import  user_registered
+from django.dispatch import receiver
 
 # Create your models here.
 class Planner(models.Model):
@@ -65,3 +65,12 @@ class Visit(models.Model):
     def __unicode__(self):
         s = str(self.trip) + " - " + str(self.place)
         return s
+
+@receiver(user_registered)
+def callback(sender, **kwargs):
+    user = kwargs.pop('user')
+    print(user)
+    planner = Planner.objects.get_or_create(user=user)[0]
+    planner.save()
+
+
