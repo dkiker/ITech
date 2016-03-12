@@ -128,3 +128,11 @@ def search_trips(request):
         data = 'fail'
     mimetype = 'application/json'
     return HttpResponse(data, mimetype)
+
+@login_required
+def mytrips(request,userID):
+    context_dict = {}
+    print(userID)
+    context_dict['trips'] = Trip.objects.filter(planner=Planner.objects.get(user=User.objects.get(id=userID)))
+
+    return render(request, 'mytrips.html', context_dict)

@@ -1,11 +1,19 @@
 {% extends "base.html" %}
-
 {% block main %}
-<h1>Register Here</h1>
-        <form method="post" action=".">
-                {% csrf_token %}
-                {{ form.as_p }}
-
-                <input type="submit" value="Submit" />
-        </form>
+    <h1>Register Here</h1>
+    <form class="form-group" method="post" action=".">
+        {% csrf_token %}
+        {% for field in form %}
+            <div class="form-group">
+                {#                {{ field.label_tag }}{{ field }}#}
+                <label class="control-label" for="{{ field.id_for_label }}">{{ field.label }}</label>
+                <input class="form-control" id="{{ field.id_for_label }}" maxlength="30" name="{{ field.html_name }}" type="text">
+                {{ field.errors }}
+                {% if field.help_text %}
+                    <small class="text-muted">{{ field.help_text|safe }}</small>
+                {% endif %}
+            </div>
+        {% endfor %}
+        <input class="btn btn-primary" type="submit" value="Submit" />
+    </form>
 {% endblock %}
