@@ -1,5 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
+from django.template.defaultfilters import slugify
+
 
 
 # Create your models here.
@@ -44,6 +46,14 @@ class Place(models.Model):
     lon = models.DecimalField(max_digits=9, decimal_places=6,blank=True)
     price = models.IntegerField(blank=True)
     description = models.CharField(max_length=250, default="")
+    locationSlug = models.SlugField()
+
+    def save(self, *args, **kwargs):
+        # Uncomment if you don't want the slug to change every time the name changes
+        #if self.id is None:
+        #self.slug = slugify(self.name)
+        self.locationSlug = slugify(self.location)
+        super(Place, self).save(*args, **kwargs)
 
     def __unicode__(self):
         return self.name
