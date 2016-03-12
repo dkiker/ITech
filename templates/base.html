@@ -51,6 +51,15 @@
 
     </script>
 
+    <!-- Plan search script-->
+    <script>
+        $(document).ready(function() {
+            $('#locationa').click(function() {
+              var newurl = '/triplanter/plan/' + $('#location').val();
+              $('#locationa').attr('href', newurl);
+            });
+        });
+    </script>
 
 
 

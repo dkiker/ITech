@@ -5,6 +5,7 @@ from models import Trip, Visit, Place,Planner
 from django.contrib.auth.models import User
 from django.core.urlresolvers import reverse,resolve
 import json
+from django.template.defaultfilters import slugify
 from forms import MyForm,CreateTrip
 
 @login_required
@@ -20,7 +21,12 @@ def index(request):
     return render(request, 'index.html', context_dict)
 
 @login_required
-def plan(request):
+def plan(request, location):
+
+    print location
+
+    print slugify(location)
+
     context_dict ={}
      # A HTTP POST?
     if request.method == 'POST':
@@ -48,7 +54,7 @@ def plan(request):
             print form.errors
             context_dict['errors'] = form.errors
     else:
-        places = Place.objects.all()#WILL BE FILTERED BY LOCATION SELECTED
+        places = Place.objects.filter(locationSlug = slugify(location))#WILL BE FILTERED BY LOCATION SELECTED
         form = CreateTrip()
         # If the request was not a POST, display the form to enter details.
         context_dict['places'] = places
