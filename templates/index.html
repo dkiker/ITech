@@ -22,7 +22,7 @@
                                 {% for trip in suggested_trips %}
                                 <div class="item {% ifequal trip initial %} active {% endifequal %}">
                                   <a href="{% url 'tripSummary' trip.id %}"><img src="{{ trip.photograph.url}}"></a>
-                                  <h6>{{trip.title}}</h6>
+                                  <div class="carousel-caption"><h4>{{trip.title}}</h4></div>
                                 </div>
                                 {% endfor %}
                             {% endwith %}
@@ -33,8 +33,7 @@
                                 <span></span>
                               </a>
                               <a class="right carousel-control" href="#myCarousel" role="button" data-slide="next">
-                                <span class="fa fa-angle-right" aria-hidden="true">Next</span>
-                                <span></span>
+                                <span class="fa fa-angle-right" aria-hidden="true"></span>Next<span></span>
                               </a>
                             </div>
                         </article> <!-- /.blog-item -->

@@ -721,6 +721,10 @@ only screen and (max-device-width : 550px){
     margin-bottom: 10px;
 }
 
+.carousel-inner > .item > img, 
+.carousel-inner > .item > a > img{
+margin: auto;
+}
 /*=============================================================================
 								Sidebar
 =================================================================================*/
