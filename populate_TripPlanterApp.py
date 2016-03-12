@@ -6,6 +6,7 @@ django.setup()
 
 from tripPlanterApp.models import Planner, Place, Trip,  Visit
 from django.contrib.auth.models import User
+from django.conf import settings
 
 def populate():
     populate_planner()
@@ -468,32 +469,34 @@ def populate_place():
 
 def populate_trip():
 
+    media_url = settings.MEDIA_URL
+
     add_trip(
         planner = Planner.objects.get(user=User.objects.get(username='angelos')),
         title = "Trip to Glasgow",
         isSuggestedTrip = True,
-        photograph = '/trip_images/hydro.jpeg'
+        photograph = media_url + 'trip_images/hydro.jpeg'
     )
 
     add_trip(
         planner = Planner.objects.get(user=User.objects.get(username='dimitris')),
         title = "Trip to Cardiff",
         isSuggestedTrip = True,
-        photograph = '/trip_images/cardiff-castle.jpeg'
+        photograph = media_url + 'trip_images/cardiff-castle.jpeg'
     )
 
     add_trip(
         planner = Planner.objects.get(user=User.objects.get(username='fotis')),
         title = "Trip to Edinburgh",
         isSuggestedTrip = True,
-        photograph = '/trip_images/our-dynamic-earth.jpeg'
+        photograph = media_url + 'trip_images/our-dynamic-earth.jpeg'
     )
 
     add_trip(
         planner = Planner.objects.get(user=User.objects.get(username='zoe')),
         title = "Trip to London",
         isSuggestedTrip = True,
-        photograph = '/trip_images/london-eye.jpeg'
+        photograph = settings.MEDIA_URL + 'trip_images/london-eye.jpeg'
     )
 
     for trip in Trip.objects.all():
