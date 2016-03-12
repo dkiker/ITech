@@ -31,20 +31,22 @@
     <link rel="stylesheet" href="http://code.jquery.com/ui/1.8.18/themes/base/jquery-ui.css" type="text/css" media="all" />
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.16/jquery-ui.min.js" type="text/javascript"></script>
-
+    <script type="text/javascript">var switchTo5x=true;</script>
+    <script type="text/javascript" src="{% static 'js/buttons.js' %}"></script>
+    <script type="text/javascript">stLight.options({publisher: "b3afc0c0-bdb7-4993-a4a0-99cb820bf11f", doNotHash: false, doNotCopy: false, hashAddressBar: false});</script>
     <!-- search scripts -->
 
     <script>
         $(function() {
-          $("#trips").autocomplete({
-            source: "{% url 'search_trips' %}",
-            minLength: 2,
-              select: function(event, ui) {
-                  event.preventDefault();
-                  $('#trips').val(ui.item.label);
-                  $(location).attr('href', '/triplanter/trip/' + ui.item.id)
-              }
-          });
+            $("#trips").autocomplete({
+                source: "{% url 'search_trips' %}",
+                minLength: 2,
+                select: function(event, ui) {
+                    event.preventDefault();
+                    $('#trips').val(ui.item.label);
+                    $(location).attr('href', '/triplanter/trip/' + ui.item.id)
+                }
+            });
         });
 
     </script>
@@ -60,9 +62,7 @@
     </script>
 
 
-<script type="text/javascript">var switchTo5x=true;</script>
-<script type="text/javascript" src="http://w.sharethis.com/button/buttons.js"></script>
-<script type="text/javascript">stLight.options({publisher: "b3afc0c0-bdb7-4993-a4a0-99cb820bf11f", doNotHash: false, doNotCopy: false, hashAddressBar: false});</script>
+
 </head>
 
 <body>
@@ -86,9 +86,12 @@
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav navbar-right">
 
-                <li class="active"><a href={% url 'index' %}>Home</span></a></li>
+                <li class="active"><a href={% url 'index' %}>Home</a></li>
+                <li><a href={% url 'plan' %}>Plan</a></li>
                 <li><a href={% url 'explore' %}>Explore</a></li>
                 <li><a href={% url 'about' %}>About</a></li>
+                <li><a href="{% url 'mytrips' user.id %}">{{ user.username }}</a></li>
+
             </ul>
         </div><!-- end of /.navbar-collapse -->
     </div><!-- end of /.container -->

@@ -16,8 +16,9 @@ urlpatterns = patterns('',
 
     url(r'^admin/', include(admin.site.urls)),
     url(r'^triplanter/', include('tripPlanterApp.urls')), # ADD THIS NEW TUPLE!
-    url(r'^accounts/register/$', MyRegistrationView.as_view(), name='registration_register'),
-    url(r'^accounts/', include('registration.backends.simple.urls')),
+    url(r'^triplanter/register/$', MyRegistrationView.as_view(), name='registration_register'),
+    url(r'^triplanter/', include('registration.backends.simple.urls')),
+
 
 
 )
