@@ -121,7 +121,7 @@
 
             $("#new-dest").click(function(){
                 var geo = new google.maps.Geocoder;
-                address = document.getElementById("new-dest-text").value;
+                address = $("#new-dest-text").val();
                 geo.geocode({'address':address},function(results, status){
                     if (status == google.maps.GeocoderStatus.OK) {
                         map.setCenter(results[0].geometry.location);
@@ -131,7 +131,9 @@
 
                 });
 
-
+                $.get('/triplanter/add_location/', {location : address}, function(data){
+                   console.log(data);
+                });
             });
         });
 

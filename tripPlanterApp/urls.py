@@ -9,6 +9,8 @@ urlpatterns = patterns('',
                         url(r'^about/$',views.about, name='about'),
                         url(r'^search_trips/', views.search_trips, name='search_trips'),
                         url(r'^mytrips/',views.mytrips, name='mytrips'),
+                        url(r'^add_location/$',views.add_location, name='addlocation'),
+
 
 
                        )

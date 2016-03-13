@@ -7,6 +7,7 @@ from django.core.urlresolvers import reverse,resolve
 import json
 from django.template.defaultfilters import slugify
 from forms import MyForm,CreateTrip
+from helper_functions import get_places,get_trip_list
 
 def index(request):
     context_dict ={}
@@ -19,6 +20,8 @@ def index(request):
 
     return render(request, 'index.html', context_dict)
 
+
+
 @login_required
 def plan(request, location):
 
@@ -29,9 +32,7 @@ def plan(request, location):
     context_dict ={}
      # A HTTP POST?
     if request.method == 'POST':
-        print(request.POST)
         form = MyForm(request.POST)
-        print(request.user)
         planner = Planner.objects.get(user=request.user)
         tripForm = CreateTrip(request.POST)
 
@@ -45,7 +46,6 @@ def plan(request, location):
             for place in data:
                 visit = Visit(trip=trip, place=place)
                 visit.save()
-                print(place)
             # Now call the index() view.
             # The user will be shown the homepage.
             return redirect(reverse('tripSummary', args=[trip.id] ))
@@ -54,12 +54,11 @@ def plan(request, location):
             print form.errors
             context_dict['errors'] = form.errors
     else:
-        places = Place.objects.filter(locationSlug = slugify(location))#WILL BE FILTERED BY LOCATION SELECTED
+        places = get_places(location)
         form = CreateTrip()
         # If the request was not a POST, display the form to enter details.
         context_dict['places'] = places
         context_dict['tripForm'] = form
-        print(form)
 
     return render(request, 'plan.html', context_dict)
 
@@ -115,18 +114,6 @@ def summary(request,tripID):
 
     return render(request,'summary.html',context_dict)
 
-#Helper function
-def get_trip_list(max_results=0, starts_with=''):
-        trip_list = []
-        if starts_with:
-                trip_list = Trip.objects.filter(title__contains= starts_with)
-
-        if max_results > 0:
-                if trip_list.count() > max_results:
-                        trip_list = trip_list[:max_results]
-
-        return trip_list
-
 
 
 @login_required
@@ -156,3 +143,17 @@ def mytrips(request):
     context_dict['trips'] = Trip.objects.filter(planner=Planner.objects.get(user=request.user))
 
     return render(request, 'mytrips.html', context_dict)
+
+@login_required
+def add_location(request):
+    response_data={}
+    if request.is_ajax():
+
+        response_data['data']='ok'
+    else:
+        response_data['data']='error'
+
+    content_type = 'application/json'
+    data = json.dumps(response_data)
+
+    return HttpResponse(data, content_type)
