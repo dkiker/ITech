@@ -6,7 +6,11 @@
 {% block main %}
 
     <div id="map-canvas"></div>
-
+<div class="input-group">
+            <input id="new-dest-text" type="text" class="form-control" placeholder="Additional Destination">
+      <span class="input-group-btn">
+        <button id="new-dest" class="btn btn-default" type="button">New City to Visit</button>
+      </span>    </div>
 {% endblock %}
 
 {% block sidebar %}
@@ -38,11 +42,7 @@
 
             <input type="submit" class="btn btn-default" value="Submit now" />
         </form>
-        <div class="input-group">
-            <input id="new-dest-text" type="text" class="form-control" placeholder="Additional Destination">
-      <span class="input-group-btn">
-        <button id="new-dest" class="btn btn-default" type="button">New City to Visit</button>
-      </span>    </div>
+
     </div> <!-- /.share-widget -->
     <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCvQW0hONU01G0pfrJZ1nZRZuulSY4rG2I&libraries=places"></script>
     <script>

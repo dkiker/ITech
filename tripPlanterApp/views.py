@@ -8,7 +8,6 @@ import json
 from django.template.defaultfilters import slugify
 from forms import MyForm,CreateTrip
 
-@login_required
 def index(request):
     context_dict ={}
     # Sends a set with all the suggested trips to the index template as part of the context dictionary
@@ -32,7 +31,8 @@ def plan(request, location):
     if request.method == 'POST':
         print(request.POST)
         form = MyForm(request.POST)
-        planner = Planner.objects.get(user=User.objects.get(username='angelos'))
+        print(request.user)
+        planner = Planner.objects.get(user=request.user)
         tripForm = CreateTrip(request.POST)
 
         # Have we been provided with a valid form?
@@ -96,7 +96,6 @@ def summary(request,tripID):
 
         print trip.title
         context_dict['trip'] = trip
-        context_dict['photo'] ="/media/"+str(trip.photograph)
         visits = Visit.objects.filter(trip = trip)
 
         print visits
@@ -135,10 +134,11 @@ def search_trips(request):
     mimetype = 'application/json'
     return HttpResponse(data, mimetype)
 
+
+
 @login_required
-def mytrips(request,userID):
+def mytrips(request):
     context_dict = {}
-    print(userID)
-    context_dict['trips'] = Trip.objects.filter(planner=Planner.objects.get(user=User.objects.get(id=userID)))
+    context_dict['trips'] = Trip.objects.filter(planner=Planner.objects.get(user=request.user))
 
     return render(request, 'mytrips.html', context_dict)

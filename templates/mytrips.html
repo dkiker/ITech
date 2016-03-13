@@ -1,34 +1,37 @@
 {% extends "base.html" %}
-
 {% block title %}My Trips{% endblock %}
 
-
 {% block main %}
-{% for trip in trips%}
-<!-- trip item -->
-<a href="{% url 'tripSummary' trip.id%}">
-	<article class="blog-item">
-	<img class="pull-left exploreImage" src="{{trip.photograph.url}}"> <h3 class="exploreTitle">{{trip.title}}</h3>
-    </article>
-</a>
-<!-- /.trip item -->
-{% endfor %}
+    {% if trips %}
+        {% for trip in trips%}
+            <!-- trip item -->
+            <a href="{% url 'tripSummary' trip.id%}">
+                <article class="blog-item">
+                    <img class="pull-left exploreImage" src='{{trip.photograph}}'> <h3 class="exploreTitle">{{trip.title}}</h3>
+                </article>
+            </a>
+
+            <!-- /.trip item -->
+        {% endfor %}
+    {% else %}
+        <p>NO TRIPS REPLACE WITH BEAAUUUTIFUL ERROR PAGE</p>
+    {% endif %}
 
 {% endblock %}
 
 
 {% block sidebar %}
-<!-- sidebar share code -->
-<div>
-    <h5>Share:</h5>
+    <!-- sidebar share code -->
     <div>
-    <span class='st_facebook_large' displayText='Facebook'></span>
-    <span class='st_fblike_large' displayText='Facebook Like'></span>
-    <span class='st_twitter_large' displayText='Tweet'></span>
-    <span class='st_googleplus_large' displayText='Google +'></span>
-    <span class='st_linkedin_large' displayText='LinkedIn'></span>
-    <span class='st_email_large' displayText='Email'></span>
+        <h5>Share:</h5>
+        <div>
+            <span class='st_facebook_large' displayText='Facebook'></span>
+            <span class='st_fblike_large' displayText='Facebook Like'></span>
+            <span class='st_twitter_large' displayText='Tweet'></span>
+            <span class='st_googleplus_large' displayText='Google +'></span>
+            <span class='st_linkedin_large' displayText='LinkedIn'></span>
+            <span class='st_email_large' displayText='Email'></span>
+        </div>
     </div>
-</div>
-<!-- /.sidebar share code -->
+    <!-- /.sidebar share code -->
 {% endblock %}

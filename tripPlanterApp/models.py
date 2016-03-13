@@ -19,7 +19,7 @@ class Planner(models.Model):
 class Trip(models.Model):
     planner = models.ForeignKey(Planner)
     title = models.CharField(max_length=128)
-    photograph = models.ImageField(upload_to='trip_images', blank=True)
+    photograph = models.ImageField(upload_to='trip_images', blank=True,default='media/trip_images/default.png')
     isSuggestedTrip = models.BooleanField(default=False)
 
     def __unicode__(self):

@@ -8,7 +8,7 @@ urlpatterns = patterns('',
                         url(r'^explore/$',views.explore, name='explore'),
                         url(r'^about/$',views.about, name='about'),
                         url(r'^search_trips/', views.search_trips, name='search_trips'),
-                        url(r'^mytrips/(?P<userID>[\w\-]+)/$',views.mytrips, name='mytrips'),
+                        url(r'^mytrips/',views.mytrips, name='mytrips'),
 
 
                        )
