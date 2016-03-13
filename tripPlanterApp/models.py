@@ -60,18 +60,6 @@ class Place(models.Model):
     def __unicode__(self):
         return self.name
 
-
-class Trip(models.Model):
-    planner = models.ForeignKey(Planner)
-    title = models.CharField(max_length=128)
-    photograph = models.ImageField(upload_to='trip_images', blank=True)
-    isSuggestedTrip = models.BooleanField(default=False)
-
-    def __unicode__(self):
-        s = str(self.planner) + " - " + str(self.title)
-        return s
-
-
 class Visit(models.Model):
     trip = models.ForeignKey(Trip)
     place = models.ForeignKey(Place)
