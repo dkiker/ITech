@@ -17,37 +17,37 @@ def populate():
 def populate_planner():
 
     add_planner(
-        user = User.objects.create_user('angelos', 'angelos@apple.com', 'angelospassword'),
+        user = User.objects.create_superuser('angelos', 'angelos@apple.com', 'angelospassword'),
         country = "Cyprus"
     )
 
     add_planner(
-        user = User.objects.create_user('dimitris', 'dimitris@kiker.com', 'dimitrispassword'),
+        user = User.objects.create_superuser('dimitris', 'dimitris@kiker.com', 'dimitrispassword'),
         country = "Greece"
     )
 
     add_planner(
-        user = User.objects.create_user('fotis', 'fotis@skeftikal.com', 'fotispassword'),
+        user = User.objects.create_superuser('fotis', 'fotis@skeftikal.com', 'fotispassword'),
         country = "Cyprus"
     )
 
     add_planner(
-        user = User.objects.create_user('zoe', 'zoe@ger.com', 'zoepassword'),
+        user = User.objects.create_superuser('zoe', 'zoe@ger.com', 'zoepassword'),
         country = "Cyprus"
     )
 
     add_planner(
-        user = User.objects.create_user('leifos', 'leif@os.com', 'leifos'),
+        user = User.objects.create_superuser('leifos', 'leif@os.com', 'leifos'),
         country = "United Kingdom"
     )
 
     add_planner(
-        user = User.objects.create_user('laura', 'laura@example.com', 'laura'),
+        user = User.objects.create_superuser('laura', 'laura@example.com', 'laura'),
         country = "United Kingdom"
     )
 
     add_planner(
-        user = User.objects.create_user('david', 'david@max.com', 'david'),
+        user = User.objects.create_superuser('david', 'david@max.com', 'david'),
         country = "United Kingdom"
     )
 
