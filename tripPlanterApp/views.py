@@ -96,6 +96,7 @@ def summary(request,tripID):
 
         print trip.title
         context_dict['trip'] = trip
+
         visits = Visit.objects.filter(trip = trip)
 
         print visits

@@ -4,6 +4,7 @@ from django.template.defaultfilters import slugify
 from registration.signals import  user_registered
 from django.dispatch import receiver
 
+
 # Create your models here.
 class Planner(models.Model):
     # This line is required. Links UserProfile to a User model instance.
@@ -25,6 +26,7 @@ class Trip(models.Model):
     def __unicode__(self):
         s = str(self.planner) + " - " + str(self.title)
         return s
+
 
 class Place(models.Model):
     # Defines the choices for the 'type' field
@@ -58,6 +60,18 @@ class Place(models.Model):
     def __unicode__(self):
         return self.name
 
+
+class Trip(models.Model):
+    planner = models.ForeignKey(Planner)
+    title = models.CharField(max_length=128)
+    photograph = models.ImageField(upload_to='trip_images', blank=True)
+    isSuggestedTrip = models.BooleanField(default=False)
+
+    def __unicode__(self):
+        s = str(self.planner) + " - " + str(self.title)
+        return s
+
+
 class Visit(models.Model):
     trip = models.ForeignKey(Trip)
     place = models.ForeignKey(Place)
@@ -65,6 +79,7 @@ class Visit(models.Model):
     def __unicode__(self):
         s = str(self.trip) + " - " + str(self.place)
         return s
+
 
 @receiver(user_registered)
 def callback(sender, **kwargs):
