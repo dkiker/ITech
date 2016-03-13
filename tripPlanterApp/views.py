@@ -115,13 +115,26 @@ def summary(request,tripID):
 
     return render(request,'summary.html',context_dict)
 
+#Helper function
+def get_trip_list(max_results=0, starts_with=''):
+        trip_list = []
+        if starts_with:
+                trip_list = Trip.objects.filter(title__contains= starts_with)
+
+        if max_results > 0:
+                if trip_list.count() > max_results:
+                        trip_list = trip_list[:max_results]
+
+        return trip_list
+
+
 
 @login_required
 def search_trips(request):
 
     if request.is_ajax():
         q = request.GET.get('term', '')
-        trips = Trip.objects.filter(title__contains= q )[:20]
+        trips = get_trip_list(20, q)
         results = []
         for trip in trips:
             trip_json = {}
