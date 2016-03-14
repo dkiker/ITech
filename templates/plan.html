@@ -82,13 +82,7 @@
             return contentString;
         }
 
-        $(window).load(function () {
-            initialize();
-
-            var markers = [];
-            {% for place in places %}
-                markers.push({"type":"{{ place.type }}","description":"{{ place.description }}","id":{{ place.id }},"price":{{ place.price }},"name":"{{ place.name }}","position":{lat: {{ place.lat }} , lng: {{place.lon}}}});
-            {% endfor %}
+        function add_marker(markers){
             markers.forEach(function (entry){
                 var imgType;
                 switch (entry.type){
@@ -97,7 +91,7 @@
                     case 'R':imgType="img/restaurant.png";break;
                 }
                 var marker = new google.maps.Marker({
-                    position: entry.position,
+                    position: {"lat" :parseFloat(entry.lat), "lng": parseFloat(entry.lng)},
                     map: map,
                     title: 'Hello World!',
                     icon: "{% static '' %}"+imgType
@@ -110,6 +104,17 @@
                     infowindow.open(map, this);
                 });
             });
+        }
+
+        $(window).load(function () {
+            initialize();
+
+            var markers = [];
+            //REPLACE WITH AJAX REQUEST TO MAKE LOADING FASTER
+            {% for place in places %}
+                markers.push({"type":"{{ place.type }}","description":"{{ place.description }}","id":{{ place.id }},"price":{{ place.price }},"name":"{{ place.name }}","lat": {{ place.lat }} , "lng": {{place.lon}}});
+            {% endfor %}
+            add_marker(markers);
             $(document).on('click', '.addplace' ,function(){
                 $('#places').append($('<option>', {
                     name: this.name,
@@ -132,7 +137,7 @@
                 });
 
                 $.get('/triplanter/add_location/', {location : address}, function(data){
-                   console.log(data);
+                   add_marker(data);
                 });
             });
         });

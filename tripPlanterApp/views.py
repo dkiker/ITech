@@ -1,14 +1,15 @@
 from django.contrib.auth.decorators import login_required
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseBadRequest
 from django.shortcuts import render_to_response, redirect, get_object_or_404, render
 from models import Trip, Visit, Place,Planner
-from django.contrib.auth.models import User
+from django.core.serializers.json import DjangoJSONEncoder
+
 from django.core.urlresolvers import reverse,resolve
 import json
 from django.template.defaultfilters import slugify
 from forms import MyForm,CreateTrip
 from helper_functions import get_places,get_trip_list
-
+from StringIO import StringIO
 def index(request):
     context_dict ={}
     # Sends a set with all the suggested trips to the index template as part of the context dictionary
@@ -143,17 +144,30 @@ def mytrips(request):
     context_dict['trips'] = Trip.objects.filter(planner=Planner.objects.get(user=request.user))
 
     return render(request, 'mytrips.html', context_dict)
+#                markers.push({"type":"{{ place.type }}","description":"{{ place.description }}","id":{{ place.id }},
+# "price":{{ place.price }},"name":"{{ place.name }}","position":{lat: {{ place.lat }} , lng: {{place.lon}}}});
 
 @login_required
 def add_location(request):
-    response_data={}
-    if request.is_ajax():
+    response_data=[]
 
-        response_data['data']='ok'
+    if request.is_ajax():
+        location = request.GET.get('location')
+        places = get_places(location)
+        for place in places:
+            place_obj ={}
+            place_obj['id'] = place.id
+            place_obj['type'] = place.type
+            place_obj['description'] = place.description
+            place_obj['price'] = place.price
+            place_obj['name'] = place.name
+            place_obj['lat'] = place.lat
+            place_obj['lng'] = place.lon
+            response_data.append(place_obj)
     else:
-        response_data['data']='error'
+        return HttpResponseBadRequest
 
     content_type = 'application/json'
-    data = json.dumps(response_data)
+    data = json.dumps(response_data, cls=DjangoJSONEncoder)
 
     return HttpResponse(data, content_type)
