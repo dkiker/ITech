@@ -9,7 +9,7 @@ import json
 from django.template.defaultfilters import slugify
 from forms import MyForm,CreateTrip
 from helper_functions import get_places,get_trip_list
-from StringIO import StringIO
+
 def index(request):
     context_dict ={}
     # Sends a set with all the suggested trips to the index template as part of the context dictionary

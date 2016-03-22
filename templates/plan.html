@@ -6,8 +6,8 @@
 {% block main %}
 
     <div id="map-canvas"></div>
-<div class="input-group">
-            <input id="new-dest-text" type="text" class="form-control" placeholder="Additional Destination">
+    <div class="input-group">
+        <input id="new-dest-text" type="text" class="form-control" placeholder="Additional Destination">
       <span class="input-group-btn">
         <button id="new-dest" class="btn btn-default" type="button">New City to Visit</button>
       </span>    </div>
@@ -29,20 +29,26 @@
             {% endfor %}
 
             {% for field in tripForm.visible_fields %}
-                {{ field.errors }}
-                {{ field.help_text }}
-                {{ field }}
+                <fieldset class="form-group">
+                    {{ field.errors }}
+                    <label for="{{ field.html_name }}">{{ field.help_text }}</label>
+                    {{ field }}
+                </fieldset>
             {% endfor %}
-
-            <select class="form-control" multiple="multiple" id ="places" name="places">
-
-            </select>
-
+            <fieldset class="form-group">
+                <label for="places">List of visiting places :</label>
+                <select class="form-control" multiple="multiple" id ="places" name="places">
+                </select>
+            </fieldset>
 
 
             <input type="submit" class="btn btn-default" value="Submit now" />
         </form>
+        <div class="btn-group" role="group" aria-label="...">
+            <button id="last" type="button" class="btn btn-default">Clear Last</button>
+            <button id="all" type="button" class="btn btn-default">Clear All</button>
 
+        </div>
     </div> <!-- /.share-widget -->
     <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCvQW0hONU01G0pfrJZ1nZRZuulSY4rG2I&libraries=places"></script>
     <script>
@@ -137,9 +143,16 @@
                 });
 
                 $.get('/triplanter/add_location/', {location : address}, function(data){
-                   add_marker(data);
+                    add_marker(data);
                 });
             });
+
+            $("#last").click(function(){
+                $("#places").find('option:last-child').remove();
+            });
+            $("#all").click(function(){
+                $("#places").empty();
+            })
         });
 
 

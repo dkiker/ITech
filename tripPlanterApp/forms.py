@@ -15,4 +15,4 @@ class CreateTrip(forms.ModelForm):
     class Meta:
         #Providing associated model
         model = Trip
-        exclude=('picture','isSuggestedTrip','planner')
+        exclude=('photograph','isSuggestedTrip','planner')
