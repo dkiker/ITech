@@ -51,111 +51,26 @@
         </div>
     </div> <!-- /.share-widget -->
     <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCvQW0hONU01G0pfrJZ1nZRZuulSY4rG2I&libraries=places"></script>
+    <script type="text/javascript" src="{% static 'js/map_initialize.js' %}"></script>
     <script>
-        var directionsService = new google.maps.DirectionsService();
-        var map;
-        var waypoints = 0;
-        var directionsRenderer = new google.maps.DirectionsRenderer();
-        var infowindow;
-        function initialize() {
-            var glasgow = new google.maps.LatLng(55.873686,-4.2518197);
-            var mapOptions = {
-                zoom: 9,
-                center: glasgow
-            }
-
-            map = new google.maps.Map(document.getElementById("map-canvas"), mapOptions);
-
-            infowindow = new google.maps.InfoWindow();
-            directionsRenderer.setMap(map);
-
-            google.maps.event.addListener(directionsRenderer, 'routeindex_changed',
-                    function() {
-                        //alert(directionsRenderer.getRouteIndex());
-                    });
-
-        }
-
-        function generateContent(place) {
-
-            var contentString = '<div id="content">' +
-                    '<h3 id="firstHeading" class="firstHeading">'+place.name+'</h3>' +
-                    '<div id="bodyContent">' +
-                    '<p>'+place.description+'</p>' +
-                    '<p>Add to visit list:<button type="button" class="glyphicon glyphicon-plus addplace" id='+place.id+' name="'+place.name+'" />' +
-                    '</div>' +``
-            '</div>';
-            return contentString;
-        }
-
-        function add_marker(markers){
-            markers.forEach(function (entry){
-                var imgType;
-                switch (entry.type){
-                    case 'A': imgType="img/attraction.png";break;
-                    case 'H':imgType="img/hotel.png";break;
-                    case 'R':imgType="img/restaurant.png";break;
-                }
-                var marker = new google.maps.Marker({
-                    position: {"lat" :parseFloat(entry.lat), "lng": parseFloat(entry.lng)},
-                    map: map,
-                    title: 'Hello World!',
-                    icon: "/assets/"+imgType
-                });
-                marker.setMap(map);
-
-                var content = generateContent(entry);
-                google.maps.event.addListener(marker, 'click', function() {
-                    infowindow.setContent(content);
-                    infowindow.open(map, this);
-                });
-            });
-        }
-
         $(window).load(function () {
             initialize();
 
             var markers = [];
-            //REPLACE WITH AJAX REQUEST TO MAKE LOADING FASTER
             {% for place in places %}
-                markers.push({"type":"{{ place.type }}","description":"{{ place.description }}","id":{{ place.id }},"price":{{ place.price }},"name":"{{ place.name }}","lat": {{ place.lat }} , "lng": {{place.lon}}});
+                markers.push({
+                    "type": "{{ place.type }}",
+                    "description": "{{ place.description }}",
+                    "id":{{ place.id }},
+                    "price":{{ place.price }},
+                    "name": "{{ place.name }}",
+                    "lat": {{ place.lat }},
+                    "lng": {{place.lon}}
+                });
             {% endfor %}
             add_marker(markers);
-            $(document).on('click', '.addplace' ,function(){
-                $('#places').append($('<option>', {
-                    name: this.name,
-                    value: this.id,
-                    text: this.name,
-                    selected: true
-                }));
-            });
 
-            $("#new-dest").click(function(){
-                var geo = new google.maps.Geocoder;
-                address = $("#new-dest-text").val();
-                geo.geocode({'address':address},function(results, status){
-                    if (status == google.maps.GeocoderStatus.OK) {
-                        map.setCenter(results[0].geometry.location);
-                    } else {
-                        alert("Geocode was not successful for the following reason: " + status);
-                    }
-
-                });
-
-                $.get('/triplanter/add_location/', {location : address}, function(data){
-                    add_marker(data);
-                });
-            });
-
-            $("#last").click(function(){
-                $("#places").find('option:last-child').remove();
-            });
-            $("#all").click(function(){
-                $("#places").empty();
-            })
         });
-
-
     </script>
 
 {% endblock %}
