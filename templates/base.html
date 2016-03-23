@@ -108,7 +108,7 @@
                         <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
                             <li><a href="{% url 'mytrips'%}">My Trips</a></li>
                             <li role="separator" class="divider"></li>
-                            <li><a href="{% url 'auth_logout' %}">Logout</a></li>
+                            <li><a href="{% url 'auth_logout' %}?next=/triplanter/">Logout</a></li>
                         </ul>
                     </li>
                 {% endif %}
