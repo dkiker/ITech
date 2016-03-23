@@ -63,7 +63,6 @@ def plan(request, location):
 
     return render(request, 'plan.html', context_dict)
 
-@login_required
 def about(request):
     context_dict ={}
     # Return a rendered response to send to the client.

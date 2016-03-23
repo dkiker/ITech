@@ -3,7 +3,7 @@ from django.contrib.auth.models import User
 from django.template.defaultfilters import slugify
 from registration.signals import  user_registered
 from django.dispatch import receiver
-
+from django.core.exceptions import ValidationError
 
 # Create your models here.
 class Planner(models.Model):
@@ -40,6 +40,7 @@ class Place(models.Model):
         (RESTAURANT, 'Restaurant'),
     )
 
+
     #decimals are very important in coordinates but using more than 6 is basically meaningless.
     name = models.CharField(max_length=128)
     type = models.CharField(max_length=2, choices=TYPE_CHOICES)
@@ -54,6 +55,8 @@ class Place(models.Model):
         # Uncomment if you don't want the slug to change every time the name changes
         #if self.id is None:
         #self.slug = slugify(self.name)
+        if (self.price < 0):
+            self.price = self.price * -1
         self.locationSlug = slugify(self.location)
         super(Place, self).save(*args, **kwargs)
 
@@ -68,11 +71,10 @@ class Visit(models.Model):
         s = str(self.trip) + " - " + str(self.place)
         return s
 
-
+#This method is called after a new user registers. It is used to create a new Planner
 @receiver(user_registered)
 def callback(sender, **kwargs):
     user = kwargs.pop('user')
-    print(user)
     planner = Planner.objects.get_or_create(user=user)[0]
     planner.save()
 
