@@ -15,3 +15,6 @@ class PlaceTest(TestCase):
         place.save()
         self.assertEqual((place.price >= 0), True)
 
+
+
+

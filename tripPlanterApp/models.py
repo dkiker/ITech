@@ -3,7 +3,6 @@ from django.contrib.auth.models import User
 from django.template.defaultfilters import slugify
 from registration.signals import  user_registered
 from django.dispatch import receiver
-from django.core.exceptions import ValidationError
 
 # Create your models here.
 class Planner(models.Model):

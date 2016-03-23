@@ -52,10 +52,7 @@
     </div> <!-- /.share-widget -->
     <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCvQW0hONU01G0pfrJZ1nZRZuulSY4rG2I&libraries=places"></script>
     <script>
-        var directionsService = new google.maps.DirectionsService();
         var map;
-        var waypoints = 0;
-        var directionsRenderer = new google.maps.DirectionsRenderer();
         var infowindow;
         function initialize() {
             var glasgow = new google.maps.LatLng(55.873686,-4.2518197);
@@ -69,10 +66,6 @@
             infowindow = new google.maps.InfoWindow();
             directionsRenderer.setMap(map);
 
-            google.maps.event.addListener(directionsRenderer, 'routeindex_changed',
-                    function() {
-                        //alert(directionsRenderer.getRouteIndex());
-                    });
 
         }
 
