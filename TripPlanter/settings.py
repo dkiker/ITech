@@ -39,11 +39,11 @@ TEMPLATE_LOADERS = (
 SECRET_KEY = '824io7wr!+woe1b@kswl1(!4w-$n&b$)xn-^339(vvz!c@gu(@'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 TEMPLATE_DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
