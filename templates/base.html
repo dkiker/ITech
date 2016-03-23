@@ -54,9 +54,9 @@
     <!-- Plan search script-->
     <script>
         $(document).ready(function() {
-            $('#locationa').click(function() {
-                var newurl = '/triplanter/plan/' + $('#location').val();
-                $('#locationa').attr('href', newurl);
+            $('#locationButton').click(function() {
+                var newurl = '/triplanter/plan/' + $('#locationInput').val();
+                $('#locationButton').attr('href', newurl);
             });
             $("#dropdownMenu1").hover(
                     function () {
@@ -66,6 +66,15 @@
                         $('ul.dropdown-menu').stop(true,true).slideUp('medium');
                     }
             );
+        });
+    </script>
+    <script>
+        $(document).keypress(function(e) {
+            if(e.which == 13 && $("#locationInput").is(":focus")) {
+                var newurl = '/triplanter/plan/' + $('#locationInput').val();
+                console.log(newurl);
+                $(location).attr('href', newurl);
+            }
         });
     </script>
 
