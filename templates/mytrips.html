@@ -16,7 +16,8 @@
             <!-- /.trip item -->
         {% endfor %}
     {% else %}
-        <p>NO TRIPS REPLACE WITH BEAAUUUTIFUL ERROR PAGE</p>
+        <h4>This message is an example of exceptional error handling</h4>
+        <p>Hi {{user.username}}, it looks like you have created no trips yet. Don't worry, you can always <u><a href="{% url 'explore'%}">explore trip ideas</a></u>! </p>
     {% endif %}
 
 {% endblock %}
