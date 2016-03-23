@@ -340,7 +340,7 @@ input[type="checkbox"] {
 
 .blog-item {
 	background-color: #ffffff;
-	/*border: 1px solid #f1f1f1;*/
+	/*border: 5px solid #0c0c0c; */
 	margin-bottom: 5px;
 	padding: 30px;
 }
@@ -747,7 +747,9 @@ margin: auto;
 }
 
 .search-widget{
-	margin-bottom: 15px;
+	margin-bottom: 5px;
+	border: 1px solid #0c0c0c;
+
 }
 
 .search-widget .input-group .form-control,

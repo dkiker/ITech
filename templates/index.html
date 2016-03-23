@@ -21,7 +21,7 @@
                               <div class="carousel-inner" role="listbox">
                                 {% for trip in suggested_trips %}
                                 <div class="item {% ifequal trip initial %} active {% endifequal %}">
-                                  <a href="{% url 'tripSummary' trip.id %}"><img src="{{ trip.photograph.url}}"></a>
+                                  <a href="{% url 'tripSummary' trip.id %}"><img src="{{ trip.photograph.url}}" width="50%" height="50%"></a>
                                   <div class="carousel-caption"><h4>{{trip.title}}</h4></div>
                                 </div>
                                 {% endfor %}
@@ -36,21 +36,22 @@
                                 <span class="fa fa-angle-right" aria-hidden="true"></span>Next<span></span>
                               </a>
                             </div>
+                            </div>
                         </article> <!-- /.blog-item -->
 
                         <article class="blog-item">
-                            <div class="row">
-                            <div class="search-widget">
-                                <div class="input-group margin-bottom-sm">
-                                    <input id="location" class="form-control" type="text" placeholder="Where are you going?">
-                                    <a id="locationa" href="" class="input-group-addon">
-                                        <i class="fa fa-search fa-fw"></i>
-                                    </a>
-                                </div>
+                            <div class="row"  >
+                                    <div class="search-widget" >
+                                        <div class="input-group margin-bottom-sm" >
+                                            <input id="location" class="form-control" type="text" placeholder="Where are you going?">
+                                            <a id="locationa" href="" class="input-group-addon">
+                                                <i class="fa fa-search fa-fw"></i>
+                                            </a>
+                                        </div>
+                                    </div>
                             </div>
-                            </div>
-                            <div class="row">
-                            <p>Plan, Share, Enjoy!</p>
+                            <div class="row" align="middle">
+                                <img src="{% static "img/searchBanner.png" %}" width="30%" height="30%" >
                             </div>
                         </article> <!-- /.blog-item -->
 {% endblock %}
@@ -58,9 +59,11 @@
 {% block sidebar %}
 
     <div class="search-widget">
-
         <div class="input-group margin-bottom-sm">
             <input class="form-control" type="text" id="trips" placeholder="Search trips...">
+            <a href="" class="input-group-addon">
+                <i class="fa fa-search fa-fw"></i>
+            </a>
         </div>
 
     </div>
@@ -76,19 +79,16 @@
 
 
 
-    <!-- subscribe form -->
-
-    <!-- sidebar share buttons->
-    <div class="share-widget hidden-xs hidden-sm">
-        <ul class="social-share text-center">
+    <div class="share-widget hidden-xs hidden-sm" align="right">
+        <img src="{% static 'img/indexIcon.png' %}" width="80%"/>
+        <!--<ul class="social-share text-center">
             <li><a href="#"><i class="fa fa-twitter"></i></a></li>
             <li><a href="#"><i class="fa fa-google-plus"></i></a></li>
             <li><a href="#"><i class="fa fa-facebook"></i></a></li>
             <li><a href="#"><i class="fa fa-pinterest"></i></a></li>
             <li><a href="#"><i class="fa fa-instagram"></i></a></li>
-        </ul>        
-    <-sidebar-share-button -->
-    </div> <!-- /.share-widget -->
+        </ul>-->
+    </div>
 
 {% endblock %}
 
