@@ -25,11 +25,6 @@ def index(request):
 
 @login_required
 def plan(request, location):
-
-    print location
-
-    print slugify(location)
-
     context_dict ={}
      # A HTTP POST?
     if request.method == 'POST':
