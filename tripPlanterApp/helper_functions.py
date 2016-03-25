@@ -2,6 +2,7 @@ from models import Trip,Place
 from django.template.defaultfilters import slugify
 
 
+#Retrieves places filtered by the location
 def get_places(location=''):
     places=[]
     if location:
@@ -11,7 +12,7 @@ def get_places(location=''):
 
 
 
-
+#Retrieves a number of trip objects
 def get_trip_list(max_results=0, starts_with=''):
         trip_list = []
         if starts_with:

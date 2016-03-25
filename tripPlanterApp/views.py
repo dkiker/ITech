@@ -137,8 +137,7 @@ def mytrips(request):
     context_dict['trips'] = Trip.objects.filter(planner=Planner.objects.get(user=request.user))
 
     return render(request, 'mytrips.html', context_dict)
-#                markers.push({"type":"{{ place.type }}","description":"{{ place.description }}","id":{{ place.id }},
-# "price":{{ place.price }},"name":"{{ place.name }}","position":{lat: {{ place.lat }} , lng: {{place.lon}}}});
+
 
 @login_required
 def add_location(request):
