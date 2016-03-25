@@ -42,8 +42,7 @@ def plan(request, location):
             for place in data:
                 visit = Visit(trip=trip, place=place)
                 visit.save()
-            # Now call the index() view.
-            # The user will be shown the homepage.
+            # The user will be shown the summary page.
             return redirect(reverse('tripSummary', args=[trip.id] ))
         else:
             # The supplied form contained errors - just print them to the terminal.
